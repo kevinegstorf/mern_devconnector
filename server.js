@@ -1,6 +1,6 @@
 const express = require("express");
 const connectDB = require("./config/db");
-
+const bodyParser = require("body-parser");
 const app = express();
 
 // Connect Database
@@ -8,7 +8,8 @@ connectDB();
 
 const PORT = process.env.PORT || 5000;
 
-app.get("/", (req, res) => res.send("HELLO HELLO"));
+// parse application/json
+app.use(bodyParser.json());
 
 // Define Routes
 app.use("/api/users", require("./routes/api/users"));
