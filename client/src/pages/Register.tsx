@@ -2,7 +2,6 @@ import React from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 import * as actions from "../store/actions";
-import { Alert } from "../components";
 
 const initialState = {
   name: "",
@@ -42,38 +41,12 @@ function RegisterPage(props: any) {
     if (state.password !== state.password2) {
       props.setAlert("passwords are not matching", "danger");
     } else {
-      try {
-        const newUser = {
-          name: state.name,
-          email: state.email,
-          password: state.password
-        };
-        const config = {
-          headers: {
-            "Content-Type": "application/json"
-          }
-        };
-        const body = JSON.stringify(newUser);
-
-        const res = await axios.post(
-          "http://localhost:5000/api/users",
-          body,
-          config
-        );
-        console.log(res.data);
-      } catch (err) {
-        console.log(err);
-      }
+      props.register({ ...state });
     }
   };
 
-  // helper that gets last item in aray
-  const last = (arr: any) => arr[arr.length - 1];
-  console.log(last(props.alert));
-
   return (
     <section className="container">
-      {last(props.alert) ? <Alert alert={props.alert} /> : null}
       <h1 className="large text-primary">Sign Up</h1>
       <p className="lead">
         <i className="fas fa-user"></i> Create Your Account

@@ -3,11 +3,14 @@ import React from "react";
 interface Props {
   alert?: any;
 }
-export function Alert(props: any): any {
-  console.log(props.alert[0].msg);
-  return (
-    <div className={`alert alert-${props.alert[0].alertType}`}>
-      {props.alert[0].msg}
-    </div>
-  );
+export function Alert(props: any = []): any {
+  return props.alert.length > 0
+    ? props.alert.map((alert: any) => {
+        return (
+          <div key={alert.id} className={`alert alert-${alert.alertType}`}>
+            {alert.msg}
+          </div>
+        );
+      })
+    : null;
 }
