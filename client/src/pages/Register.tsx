@@ -1,5 +1,8 @@
 import React from "react";
 import axios from "axios";
+import { connect } from "react-redux";
+import * as actions from "../store/actions";
+import { Alert } from "../components";
 
 const initialState = {
   name: "",
@@ -27,7 +30,7 @@ function reducer(state: State, { field, value }: InputKeyValue) {
   };
 }
 
-export default function RegisterPage() {
+function RegisterPage(props: any) {
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,10 +40,8 @@ export default function RegisterPage() {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (state.password !== state.password2) {
-      console.log("passwords are not matching");
+      props.setAlert("passwords are not matching", "danger");
     } else {
-      console.log(state);
-
       try {
         const newUser = {
           name: state.name,
@@ -66,8 +67,13 @@ export default function RegisterPage() {
     }
   };
 
+  // helper that gets last item in aray
+  const last = (arr: any) => arr[arr.length - 1];
+  console.log(last(props.alert));
+
   return (
     <section className="container">
+      {last(props.alert) ? <Alert alert={props.alert} /> : null}
       <h1 className="large text-primary">Sign Up</h1>
       <p className="lead">
         <i className="fas fa-user"></i> Create Your Account
@@ -120,3 +126,9 @@ export default function RegisterPage() {
     </section>
   );
 }
+
+const mapStateToProps = (state: any) => {
+  return { alert: state.alert };
+};
+
+export default connect(mapStateToProps, actions)(RegisterPage);
