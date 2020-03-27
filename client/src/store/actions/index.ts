@@ -8,6 +8,7 @@ import {
   REGISTER_SUCCESS
 } from "./types";
 import axios from "axios";
+import { setAlert } from "./setAlert";
 
 export function saveComment(comment: any) {
   return {
@@ -24,18 +25,8 @@ export function fetchComments() {
   };
 }
 
-export const setAlert = (msg: any, alertType: any) => (dispatch: any): any => {
-  const id = uuidv4();
-  dispatch({
-    type: SET_ALERT,
-    payload: {
-      msg,
-      alertType,
-      id
-    }
-  });
-
-  setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id }), 1500);
+const Hello = () => {
+  console.log("hello");
 };
 
 export const register = ({ name, email, password }: any) => async (
@@ -62,13 +53,12 @@ export const register = ({ name, email, password }: any) => async (
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
-      console.log("hello");
-      errors.forEach((error: any) => {
-        setAlert(error.msg, "danger");
-      });
+      errors.forEach((error: any) => dispatch(setAlert(error.msg, "danger")));
     }
     dispatch({
       type: REGISTER_FAIL
     });
   }
 };
+
+export { setAlert } from "./setAlert";

@@ -22,7 +22,6 @@
   },
   "homepage": "https://github.com/kevinegstorf/mern_devconnector#readme",
   "dependencies": {
-    "@types/react-router-dom": "^5.1.3",
     "axios": "^0.19.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
@@ -35,10 +34,6 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.5",
     "normalize-url": "^5.0.0",
-    "react-redux": "^7.2.0",
-    "react-router-dom": "^5.1.2",
-    "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0",
     "request": "^2.88.2"
   },
   "devDependencies": {
