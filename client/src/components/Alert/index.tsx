@@ -1,9 +1,14 @@
 import React from "react";
 
-interface Props {
-  alert?: any;
-}
-export function Alert(props: any = []): any {
+type Alert = {
+  id: string;
+  msg: string;
+  alertType: string;
+};
+type Props = {
+  alert: any;
+};
+export function Alert(props: any = []) {
   return props.alert.length > 0
     ? props.alert.map((alert: any) => {
         return (

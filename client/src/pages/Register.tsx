@@ -1,7 +1,7 @@
 import React from "react";
-import axios from "axios";
 import { connect } from "react-redux";
 import * as actions from "../store/actions";
+import { Store } from "../store/types";
 
 const initialState = {
   name: "",
@@ -17,6 +17,11 @@ interface State {
   password2: string;
 }
 
+type Props = {
+  setAlert: (msg: string, alertType: string) => void;
+  registerUser: ({}) => void;
+};
+
 interface InputKeyValue {
   field: string;
   value: string;
@@ -29,7 +34,7 @@ function reducer(state: State, { field, value }: InputKeyValue) {
   };
 }
 
-function RegisterPage(props: any) {
+function RegisterPage(props: any): any {
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +46,10 @@ function RegisterPage(props: any) {
     if (state.password !== state.password2) {
       props.setAlert("passwords are not matching", "danger");
     } else {
-      props.register({ ...state });
+      props.registerUser({ ...state });
+      props.setAlert("registration completed", "success");
+
+      // ADD HISTORY push
     }
   };
 
@@ -100,7 +108,7 @@ function RegisterPage(props: any) {
   );
 }
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: Store) => {
   return { alert: state.alert };
 };
 
