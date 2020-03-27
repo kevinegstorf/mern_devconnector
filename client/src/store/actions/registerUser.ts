@@ -3,14 +3,8 @@ import { REGISTER_FAIL, REGISTER_SUCCESS } from "./types";
 import axios from "axios";
 import { setAlert } from "./setAlert";
 
-type Props = {
-  name: string;
-  email: string;
-  password: string;
-};
-
-export const registerUser = ({ name, email, password }: Props) => async (
-  dispatch: ({ type, payload }: any) => void
+export const registerUser = ({ name, email, password }: any) => async (
+  dispatch: any
 ) => {
   const config = {
     headers: {
@@ -33,9 +27,7 @@ export const registerUser = ({ name, email, password }: Props) => async (
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
-      errors.forEach((error: { msg: string }) =>
-        dispatch(setAlert(error.msg, "danger"))
-      );
+      errors.forEach((error: any) => dispatch(setAlert(error.msg, "danger")));
     }
     dispatch({
       type: REGISTER_FAIL
