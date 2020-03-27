@@ -1,5 +1,7 @@
 import React from "react";
-import axios from "axios";
+import { connect } from "react-redux";
+import * as actions from "../store/actions";
+import { Store } from "../store/types";
 
 const initialState = {
   name: "",
@@ -15,6 +17,11 @@ interface State {
   password2: string;
 }
 
+type Props = {
+  setAlert: (msg: string, alertType: string) => void;
+  registerUser: ({}) => void;
+};
+
 interface InputKeyValue {
   field: string;
   value: string;
@@ -27,7 +34,7 @@ function reducer(state: State, { field, value }: InputKeyValue) {
   };
 }
 
-export default function RegisterPage() {
+function RegisterPage(props: any): any {
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,32 +44,12 @@ export default function RegisterPage() {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (state.password !== state.password2) {
-      console.log("passwords are not matching");
+      props.setAlert("passwords are not matching", "danger");
     } else {
-      console.log(state);
+      props.registerUser({ ...state });
+      props.setAlert("registration completed", "success");
 
-      try {
-        const newUser = {
-          name: state.name,
-          email: state.email,
-          password: state.password
-        };
-        const config = {
-          headers: {
-            "Content-Type": "application/json"
-          }
-        };
-        const body = JSON.stringify(newUser);
-
-        const res = await axios.post(
-          "http://localhost:5000/api/users",
-          body,
-          config
-        );
-        console.log(res.data);
-      } catch (err) {
-        console.log(err);
-      }
+      // ADD HISTORY push
     }
   };
 
@@ -120,3 +107,9 @@ export default function RegisterPage() {
     </section>
   );
 }
+
+const mapStateToProps = (state: Store) => {
+  return { alert: state.alert };
+};
+
+export default connect(mapStateToProps, actions)(RegisterPage);

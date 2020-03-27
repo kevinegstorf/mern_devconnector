@@ -34,7 +34,7 @@ const LoginPageWrapper = () => {
     </Layout>
   );
 };
-const RegisterPageWrapper = () => {
+const RegisterPageWrapper = (): any => {
   return (
     <Layout>
       <RegisterPage />

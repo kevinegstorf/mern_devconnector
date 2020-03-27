@@ -58,6 +58,10 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
+function checkPostLength(string) {
+  return string.match(/^[0-9a-fA-F]{24}$/);
+}
+
 // @route    GET api/posts/:id
 // @desc     Get post by ID
 // @access   Private
@@ -66,7 +70,7 @@ router.get("/:id", auth, async (req, res) => {
     const post = await Post.findById(req.params.id);
 
     // Check for ObjectId format and post
-    if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !post) {
+    if (!checkPostLength(req.params.id) || !post) {
       return res.status(404).json({ msg: "Post not found" });
     }
 
@@ -86,7 +90,7 @@ router.delete("/:id", auth, async (req, res) => {
     const post = await Post.findById(req.params.id);
 
     // Check for ObjectId format and post
-    if (!req.params.id.match(/^[0-9a-fA-F]{24}$/) || !post) {
+    if (!checkPostLength(req.params.id) || !post) {
       return res.status(404).json({ msg: "Post not found" });
     }
 
@@ -113,6 +117,7 @@ router.put("/like/:id", auth, async (req, res) => {
     const post = await Post.findById(req.params.id);
 
     // Check if the post has already been liked
+    // @TODO ARRAY FUNCTIE .some en .every checken!!
     if (
       post.likes.filter(like => like.user.toString() === req.user.id).length > 0
     ) {
@@ -181,6 +186,7 @@ router.post(
     }
 
     try {
+      // PROMISE ALL van Maken!
       const user = await User.findById(req.user.id).select("-password");
       const post = await Post.findById(req.params.id);
 
