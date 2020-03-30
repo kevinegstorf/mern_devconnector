@@ -1,40 +1,17 @@
 import React from "react";
+import { connect } from "react-redux";
 
-export default function DashBoard() {
+function DashBoard(props: any) {
+  let name = "";
+  if (props.auth.user) {
+    name = props.auth.user.name;
+  }
   return (
     <>
-      <nav className="navbar bg-dark">
-        <h1>
-          <a href="index.html">
-            <i className="fas fa-code"></i> DevConnector
-          </a>
-        </h1>
-        <ul>
-          <li>
-            <a href="profiles.html">Developers</a>
-          </li>
-          <li>
-            <a href="posts.html">Posts</a>
-          </li>
-          <li>
-            |
-            <a href="dashboard.html" title="Dashboard">
-              <i className="fas fa-user"></i>
-              <span className="hide-sm">Dashboard</span>
-            </a>
-          </li>
-          <li>
-            <a href="login.html" title="Logout">
-              <i className="fas fa-sign-out-alt"></i>
-              <span className="hide-sm">Logout</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
       <section className="container">
         <h1 className="large text-primary">Dashboard</h1>
         <p className="lead">
-          <i className="fas fa-user"></i> Welcome John Doe
+          <i className="fas fa-user"></i> Welcome {name}
         </p>
         <div className="dash-buttons">
           <a href="edit-profile.html" className="btn btn-light">
@@ -110,3 +87,9 @@ export default function DashBoard() {
     </>
   );
 }
+
+const mapStateToProps = (state: any) => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps, null)(DashBoard);

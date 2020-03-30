@@ -17,7 +17,7 @@ function Layout(props: Props) {
 }
 
 const mapStateToProps = (state: Store) => {
-  return { alert: state.alert };
+  return { alert: state.alert, auth: state.auth };
 };
 
 export default connect(mapStateToProps, null)(Layout);

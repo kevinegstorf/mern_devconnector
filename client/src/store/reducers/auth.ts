@@ -51,6 +51,7 @@ export default function(state = initialState, action: any) {
         user: null
       };
     case LOGOUT:
+      delete localStorage.token;
       return {
         ...state,
         token: null,
