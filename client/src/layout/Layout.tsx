@@ -10,16 +10,14 @@ function Layout(props: Props) {
   return (
     <div>
       <NavBar />
-      <section className="container">
-        <Alert />
-        {props.children}
-      </section>
+      <Alert />
+      {props.children}
     </div>
   );
 }
 
 const mapStateToProps = (state: Store) => {
-  return { alert: state.alert };
+  return { alert: state.alert, auth: state.auth };
 };
 
 export default connect(mapStateToProps, null)(Layout);

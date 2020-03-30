@@ -2,11 +2,10 @@ import React from "react";
 import { NavBar, Alert } from "./components";
 import { connect } from "react-redux";
 function Layout(props: any) {
-  console.log(props.alert);
   return (
     <div>
-      <NavBar />
-      <div className="container">
+      <NavBar auth={props.auth} />
+      <div>
         {props.alert ? <Alert alert={props.alert} /> : null}
         {props.children}
       </div>
@@ -15,7 +14,7 @@ function Layout(props: any) {
 }
 
 const mapStateToProps = (state: any) => {
-  return { alert: state.alert };
+  return { alert: state.alert, auth: state.auth };
 };
 
 export default connect(mapStateToProps, null)(Layout);

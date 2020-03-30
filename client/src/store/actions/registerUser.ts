@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
 import { REGISTER_FAIL, REGISTER_SUCCESS } from "./types";
 import axios from "axios";
 import { setAlert } from "./setAlert";

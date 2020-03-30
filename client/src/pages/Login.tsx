@@ -1,6 +1,8 @@
 import React from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import * as actions from "../store/actions";
+import { Redirect } from "react-router-dom";
 
 const initialState = {
   email: "",
@@ -24,7 +26,7 @@ function reducer(state: State, { field, value }: InputKeyValue) {
   };
 }
 
-export default function LoginPage() {
+function LoginPage(props: any) {
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,32 +35,15 @@ export default function LoginPage() {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    try {
-      const loginUser = {
-        email: state.email,
-        password: state.password
-      };
-      const config = {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      };
-      const body = JSON.stringify(loginUser);
-
-      const res = await axios.post(
-        "http://localhost:5000/api/auth",
-        body,
-        config
-      );
-      console.log(res.data);
-    } catch (err) {
-      console.log(err);
-    }
+    props.login(state.email, state.password);
   };
+
+  if (props.isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
+
   return (
     <section className="container">
-      <div className="alert alert-danger">Invalid credentials</div>
       <h1 className="large text-primary">Sign In</h1>
       <p className="lead">
         <i className="fas fa-user"></i> Sign into Your Account
@@ -91,3 +76,9 @@ export default function LoginPage() {
     </section>
   );
 }
+
+const mapStateToProps = (state: any) => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, actions)(LoginPage);
