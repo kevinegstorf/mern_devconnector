@@ -12,8 +12,10 @@ export function Alert(props: any = []) {
   return props.alert.length > 0
     ? props.alert.map((alert: any) => {
         return (
-          <div key={alert.id} className={`alert alert-${alert.alertType}`}>
-            {alert.msg}
+          <div className="container">
+            <div key={alert.id} className={`alert alert-${alert.alertType}`}>
+              {alert.msg}
+            </div>
           </div>
         );
       })

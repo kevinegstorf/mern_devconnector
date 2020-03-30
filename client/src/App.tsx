@@ -5,6 +5,7 @@ import Layout from "./Layout";
 import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
+import DashBoard from "./pages/DashBoard";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route exact path="/" component={HomePageWrapper} />
           <Route exact path="/login" component={LoginPageWrapper} />
           <Route exact path="/register" component={RegisterPageWrapper} />
+          <Route exact path="/dashboard" component={DashBoard} />
         </Switch>
       </div>
     </BrowserRouter>

@@ -17,11 +17,6 @@ interface State {
   password2: string;
 }
 
-type Props = {
-  setAlert: (msg: string, alertType: string) => void;
-  registerUser: ({}) => void;
-};
-
 interface InputKeyValue {
   field: string;
   value: string;

@@ -10,10 +10,8 @@ function Layout(props: Props) {
   return (
     <div>
       <NavBar />
-      <section className="container">
-        <Alert />
-        {props.children}
-      </section>
+      <Alert />
+      {props.children}
     </div>
   );
 }

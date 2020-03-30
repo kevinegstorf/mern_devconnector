@@ -1,7 +1,7 @@
 import { SET_ALERT, REMOVE_ALERT } from "../actions/types";
 const initialState: any = [];
 
-export default function(state = initialState, action: any): any {
+export default function setAlert(state = initialState, action: any): any {
   switch (action.type) {
     case SET_ALERT:
       return [...state, action.payload];

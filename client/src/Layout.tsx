@@ -2,11 +2,10 @@ import React from "react";
 import { NavBar, Alert } from "./components";
 import { connect } from "react-redux";
 function Layout(props: any) {
-  console.log(props.alert);
   return (
     <div>
       <NavBar />
-      <div className="container">
+      <div>
         {props.alert ? <Alert alert={props.alert} /> : null}
         {props.children}
       </div>
