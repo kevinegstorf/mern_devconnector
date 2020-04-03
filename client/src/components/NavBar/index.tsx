@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 import * as actions from "../../store/actions";
 import { connect } from "react-redux";
 
-function NavBar(props: any) {
+function NavBar({ logout, auth }: any) {
   const clickHandler = () => {
-    props.logout();
+    logout();
   };
-  return props.auth.isAuthenticated ? (
+  return auth.isAuthenticated ? (
     <nav className="navbar bg-dark">
       <h1>
-        <Link to="/">
+        <Link to="/dashboard">
           <i className="fas fa-code"></i> DevConnector
         </Link>
       </h1>

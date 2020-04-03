@@ -15,17 +15,18 @@ interface Props {
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
+const initialState = {};
 
-export default ({ children, initialState = {} }: Props) => {
+const store: any = createStore(
+  reducers,
+  initialState,
+  composeWithDevTools(applyMiddleware(thunk))
+);
+export default ({ children, initialState }: Props) => {
   React.useEffect(() => {
     setAuthToken(localStorage.token);
     store.dispatch(loadUser());
   }, []);
-  const store = createStore(
-    reducers,
-    initialState,
-    composeWithDevTools(applyMiddleware(thunk))
-  );
 
   return <Provider store={store}>{children}</Provider>;
 };
